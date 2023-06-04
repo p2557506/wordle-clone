@@ -1,0 +1,13 @@
+.letter{
+    flex: 33%;
+  height: 100%;
+  border: 1px solid grey;
+  margin: 5px;
+  //Display grid automatically places letters
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  font-weight: bolder;
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
+}

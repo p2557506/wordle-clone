@@ -1,18 +1,21 @@
 .grid{
-    display: grid;
-    grid-template-columns: repeat(5,20px);
-    grid-template-rows: repeat(6,30px);
-    justify-content: center;
-    margin-top: 10px;
+
+    height: 500px;
+  width: 450px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+  
+  
     
-    
-    .letterBox{
+    .row{
+        flex: 33%;
         display: flex;
+        flex-direction: row;
+        margin: 5px;
+       
         
-        border: solid 1px lightgray;
-        align-items: center;
-        justify-content: center;
-        max-width: fit-content;
-        font-size: 30px;
     }
 }
