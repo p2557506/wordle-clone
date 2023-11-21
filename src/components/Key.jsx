@@ -2,13 +2,17 @@ import React,{ useContext } from "react"
 
 import {AppContext} from "../App.js"
 const Key = ({keyVal,bigKey}) => {
-    const {board,setBoard,currentAttempt,setCurrentAttempt} = useContext(AppContext);
+    const {board,setBoard,currentAttempt,setCurrentAttempt,onSelectLetter,onEnter,onDelete} = useContext(AppContext);
     const selectLetter = () =>{
-        //Spread operator to pass object without need to pass indvidual vals    
-        const currentBoardInstance = [...board];
-        currentBoardInstance[currentAttempt.attempt][currentAttempt.letterPos] = keyVal;
-        setBoard(currentBoardInstance);
-        setCurrentAttempt({...currentAttempt, letterPos:currentAttempt.letterPos+1})
+      if(keyVal == "Enter"){
+        onEnter();
+      } else if(keyVal =="Delete"){
+        onDelete();
+      } 
+      else{
+
+        onSelectLetter(keyVal);
+      }
     }
 
   return (
