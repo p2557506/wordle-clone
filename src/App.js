@@ -1,8 +1,8 @@
 import "./App.css";
 import Board from "./components/board/Board";
 import Keyboard from "./components/keyboard/Keyboard";
-import {createContext,useState} from "react"
-import { boardDefault } from "../src/components/Words";
+import {createContext,useEffect,useState} from "react"
+import { boardDefault ,generateWordSet } from "../src/components/Words";
 
 
 export const AppContext = createContext();
@@ -11,6 +11,17 @@ function App() {
   //Use context api to pass state across whole project
   const [board,setBoard] = useState(boardDefault);
   const [currentAttempt,setCurrentAttempt] = useState({attempt:0,letterPos:0});
+  const [wordSet,setWordSet] = useState(new Set());
+
+  const correctWord = "BEAST";
+
+  useEffect(()=>{
+    //Async function so return promise
+    generateWordSet().then((words) =>{
+      console.log(words.wordSet);
+      setWordSet(words.wordSet)
+    })
+  },[])
 
   const onSelectLetter = (keyVal) =>{
      //Spread operator to pass object without need to pass indvidual vals    
@@ -34,7 +45,7 @@ function App() {
   return (
     <div className="App">
       <nav><h1>Wordle</h1></nav>
-      <AppContext.Provider value={{board,setBoard , currentAttempt,setCurrentAttempt, onSelectLetter,onEnter,onDelete}}>
+      <AppContext.Provider value={{board,setBoard , currentAttempt,setCurrentAttempt, onSelectLetter,onEnter,onDelete,correctWord}}>
         <div className="game">
           <Board/>
           <Keyboard/>
