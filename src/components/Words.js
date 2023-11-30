@@ -16,11 +16,17 @@ export const generateWordSet = async () =>{
     //Unique and unordered elements
     //Great data structure for wordle bank O(1)
     let wordSet;
-    await fetch(wordleBank).then((response) => response.text()).then((result) => {
+    let randomlyChosenWord;
+    await fetch(wordleBank)
+    .then((response) => response.text())
+    .then((result) => {
         const wordArr = result.split("\n")
+        //Random index chosen based on length of array, then rounded down
+        //Math.random returns integer between 0 and 1
+        randomlyChosenWord = wordArr[Math.floor(Math.random() * wordArr.length)]
         wordSet = new Set(wordArr);
     })
     //Object wordSet
-    return {wordSet};
+    return {wordSet , randomlyChosenWord};
 
 }

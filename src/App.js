@@ -14,12 +14,16 @@ function App() {
   const [currentAttempt,setCurrentAttempt] = useState({attempt:0,letterPos:0});
   const [wordSet,setWordSet] = useState(new Set());
 
+  //Keyboard Coloring
   const [usedLetters, setUsedLetters] = useState([]);
+  const [almostLetters,setAlmostLetters] = useState([]);
+  const [correctLetters,setCorrectLetters] = useState([])
 
   //GameOver State
   const [gameOver,setGameOver] = useState({gameOver:false,guessedWord:false});
 
-  const correctWord = "BEAST";
+  //Random word
+  const [correctWord,setCorrectWord] = useState("");
 
   //Generates word set, runs one once
   useEffect(()=>{
@@ -27,7 +31,8 @@ function App() {
     generateWordSet().then((words) =>{
       console.log(words.wordSet);
       setWordSet(words.wordSet);
-    })
+      setCorrectWord(words.randomlyChosenWord);
+    });
   },[])
 
   const onSelectLetter = (keyVal) =>{
@@ -57,7 +62,7 @@ function App() {
       return;
     }
     //If player has reached their last attempt and not guessed the word correctly
-    if(currentAttempt.attempt == 5){
+    if(currentAttempt.attempt === 5){
       setGameOver({gameOver:true,guessedWord:false})
     }
   }
@@ -72,7 +77,7 @@ function App() {
   return (
     <div className="App">
       <nav><h1>Wordle</h1></nav>
-      <AppContext.Provider value={{board,setBoard , currentAttempt,setCurrentAttempt, onSelectLetter,onEnter,onDelete,correctWord,usedLetters, setUsedLetters, gameOver,setGameOver}}>
+      <AppContext.Provider value={{board,setBoard , currentAttempt,setCurrentAttempt, onSelectLetter,onEnter,onDelete,correctWord,usedLetters, setUsedLetters, almostLetters,setAlmostLetters,correctLetters,setCorrectLetters ,gameOver,setGameOver}}>
         <div className="game">
           <Board/>
           {gameOver.gameOver ? <GameOver/> : <Keyboard/> }
